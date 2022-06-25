@@ -28,3 +28,18 @@ function operator(operation, num1, num2) {
         return divide(num1, num2);
     }
 }
+
+const numBtn = document.querySelectorAll('.num');
+const display = document.querySelector('#display');
+let displayValue = "";
+
+numBtn.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        if (displayValue.includes('.') && e.value === ".") {
+
+        } else {
+            displayValue+=e.value;
+            display.textContent = displayValue
+        }
+    })
+})
