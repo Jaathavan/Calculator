@@ -35,10 +35,10 @@ let displayValue = "";
 
 numBtn.forEach((button) => {
     button.addEventListener('click', (e) => {
-        if (displayValue.includes('.') && e.value === ".") {
+        if (displayValue.includes('.') && button.value === ".") {
 
         } else {
-            displayValue+=e.value;
+            displayValue+=button.value;
             display.textContent = displayValue
         }
     })
