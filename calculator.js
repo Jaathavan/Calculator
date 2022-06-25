@@ -33,8 +33,9 @@ const numBtn = document.querySelectorAll('.num');
 const display = document.querySelector('#display');
 let displayValue = "";
 
+//add event listener to number buttons and add them to display when clicked
 numBtn.forEach((button) => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', () => {
         if (displayValue.includes('.') && button.value === ".") {
 
         } else {
@@ -42,4 +43,51 @@ numBtn.forEach((button) => {
             display.textContent = displayValue
         }
     })
+})
+
+const opsButton = document.querySelectorAll(".ops");
+let num1 = "";
+let operation = "";
+
+//adds event listener to function so that when it is clicked it recalculates the answer + ops
+opsButton.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (num1 === "") {
+            num1 = Number(display.textContent);
+            operation = button.value;
+            displayValue = "";
+        }
+        else if (num1 !== "") {
+            if (operation === "+") {
+                num1 += Number(display.textContent);
+                operation = button.value;
+                displayValue = "";
+            }
+            else if (operation === "-") {
+                num1 -= Number(display.textContent);
+                operation = button.value;
+                displayValue = "";
+            }
+            else if (operation === "*") {
+                num1 *= Number(display.textContent);
+                operation = button.value;
+                displayValue = "";
+            }
+            else if (operation === "/") {
+                num1 /= Number(display.textContent);
+                operation = button.value;
+                displayValue = "";
+            }
+        }
+        display.textContent = button.textContent;
+    })
+})
+
+const clearButton = document.querySelector('#clear');
+
+clearButton.addEventListener('click', () => {
+    display.textContent = 0;
+    displayValue = "";
+    num1 = "";
+    operation = "";
 })
