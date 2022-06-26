@@ -8,15 +8,14 @@ let firstNum = true;
 //add event listener to number buttons and add them to display when clicked
 numBtn.forEach((button) => {
     button.addEventListener('click', () => {
-        if (displayValue.includes('.') && button.value === ".") {
-
-        }
+        if (displayValue.includes('.') && button.value === ".") {}
         else if (button.value === "." && displayValue === "") {
             displayValue = "0";
             displayValue+=button.value;
             display.textContent = displayValue;
             activeOps = false;
-        } 
+        }
+        else if (display.textContent === "0" && button.value === "0") {}
         else {
             displayValue+=button.value;
             display.textContent = displayValue
