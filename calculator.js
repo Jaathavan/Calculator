@@ -17,8 +17,10 @@ numBtn.forEach((button) => {
         }
         else if (display.textContent === "0" && button.value === "0") {}
         else {
-            displayValue+=button.value;
-            display.textContent = displayValue
+            if (display.textContent.length < 15) {
+                displayValue+=button.value;
+            }
+            display.textContent = displayValue;
             activeOps = false;
         }
     })
@@ -174,3 +176,11 @@ clearButton.addEventListener('click', () => {
     num1 = "";
     operation = "";
 });
+
+const delButton = document.querySelector('#delete');
+
+//deletes last element in display
+delButton.addEventListener('click', () => {
+    displayValue = displayValue.slice(0, (displayValue.length-1));
+    display.textContent = displayValue;
+})
