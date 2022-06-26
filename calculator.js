@@ -52,7 +52,7 @@ let operation = "";
 //adds event listener to function so that when it is clicked it recalculates the answer + ops
 opsButton.forEach((button) => {
     button.addEventListener('click', () => {
-        if (num1 === "") {
+        if (num1 === "" || operation === "") {
             num1 = Number(display.textContent);
             operation = button.value;
             displayValue = "";
@@ -79,15 +79,46 @@ opsButton.forEach((button) => {
                 displayValue = "";
             }
         }
-        display.textContent = button.textContent;
-    })
+        display.textContent = num1;
+        console.log(num1);
+        console.log(operation);
+    });
+});
+
+const equalsButton = document.querySelector('#equals');
+
+equalsButton.addEventListener('click', () => {
+    if (operation === "+") {
+        num1 += Number(display.textContent);
+        operation = "";
+        displayValue = "";
+    }
+    else if (operation === "-") {
+        num1 -= Number(display.textContent);
+        operation = "";
+        displayValue = "";
+    }
+    else if (operation === "*") {
+        num1 *= Number(display.textContent);
+        operation = "";
+        displayValue = "";
+    }
+    else if (operation === "/") {
+        num1 /= Number(display.textContent);
+        operation = "";
+        displayValue = "";
+    }
+    display.textContent = num1;
+    console.log(num1);
+    console.log(operation)
 })
 
 const clearButton = document.querySelector('#clear');
 
+//clears everything and sets default values of 0
 clearButton.addEventListener('click', () => {
     display.textContent = 0;
     displayValue = "";
     num1 = "";
     operation = "";
-})
+});
