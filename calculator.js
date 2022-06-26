@@ -1,34 +1,3 @@
-function add(a, b) {
-    return a + b;
-}
-
-function subtract(a, b) {
-    return a - b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    return a / b;
-}
-
-function operator(operation, num1, num2) {
-    if (operation === "+") {
-        return add(num1, num2);
-    }
-    else if (operation === "-") {
-        return subtract(num1, num2);
-    }
-    else if (operation === "*") {
-        return multiply(num1, num2);
-    }
-    else if (operation === "/") {
-        return divide(num1, num2);
-    }
-}
-
 const numBtn = document.querySelectorAll('.num');
 const display = document.querySelector('#display');
 let displayValue = "";
@@ -38,7 +7,13 @@ numBtn.forEach((button) => {
     button.addEventListener('click', () => {
         if (displayValue.includes('.') && button.value === ".") {
 
-        } else {
+        }
+        else if (button.value === "." && displayValue === "") {
+            displayValue = "0";
+            displayValue+=button.value;
+            display.textContent = displayValue;
+        } 
+        else {
             displayValue+=button.value;
             display.textContent = displayValue
         }
@@ -59,34 +34,34 @@ opsButton.forEach((button) => {
         }
         else if (num1 !== "") {
             if (operation === "+") {
-                num1 += Number(display.textContent);
+                num1 = operator(operation, num1, Number(display.textContent));
                 operation = button.value;
                 displayValue = "";
             }
             else if (operation === "-") {
-                num1 -= Number(display.textContent);
+                num1 = operator(operation, num1, Number(display.textContent));
                 operation = button.value;
                 displayValue = "";
             }
             else if (operation === "*") {
-                num1 *= Number(display.textContent);
+                num1 = operator(operation, num1, Number(display.textContent));
                 operation = button.value;
                 displayValue = "";
             }
             else if (operation === "/") {
-                num1 /= Number(display.textContent);
-                operation = button.value;
-                displayValue = "";
+                temp = operator(operation, num1, Number(display.textContent));
+                if (Number.isNaN(temp) || !Number.isFinite(temp)) {
+                    display.textContent = "ERROR";
+                    alert("Error: Numbers can not be divided by 0");
+                }
+                else {
+                    num1 = operator(operation, num1, Number(display.textContent));
+                    operation = button.value;
+                    displayValue = "";
+                }
             }
         }
-
-        //check if Infinite or NaN
-        if (Number.isNaN(num1) || !Number.isFinite(num1)) {
-            display.textContent = "ERROR";
-        }
-        else {
-            display.textContent = num1;
-        }
+        display.textContent = num1;
         console.log(num1);
         console.log(operation);
     });
@@ -97,38 +72,67 @@ const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', () => {
     if (num1 === "" || operation === "") {}
     else if (operation === "+") {
-        num1 += Number(display.textContent);
+        num1 = operator(operation, num1, Number(display.textContent));
         operation = "";
         displayValue = "";
     }
     else if (operation === "-") {
-        num1 -= Number(display.textContent);
+        num1 = operator(operation, num1, Number(display.textContent));
         operation = "";
         displayValue = "";
     }
     else if (operation === "*") {
-        num1 *= Number(display.textContent);
+        num1 = operator(operation, num1, Number(display.textContent));
         operation = "";
         displayValue = "";
     }
     else if (operation === "/") {
-        num1 /= Number(display.textContent);
-        operation = "";
-        displayValue = "";
-    }
-
-    //check if is Infinite or NaN
-    if (Number.isNaN(num1) || !Number.isFinite(num1)) {
-        if (num1 !== "" || operation !== "") {
+        temp = operator(operation, num1, Number(display.textContent));
+        if (Number.isNaN(temp) || !Number.isFinite(temp)) {
             display.textContent = "ERROR";
+            alert("Error: Numbers can not be divided by 0");
+        }
+        else {
+            num1 = operator(operation, num1, Number(display.textContent));
+            operation = "";
+            displayValue = "";
         }
     }
-    else {
-        display.textContent = num1;
-    }
+    display.textContent = num1;
     console.log(num1);
     console.log(operation)
 })
+
+function operator(operation, num1, num2) {
+    if (operation === "+") {
+        return add(num1, num2);
+    }
+    else if (operation === "-") {
+        return subtract(num1, num2);
+    }
+    else if (operation === "*") {
+        return multiply(num1, num2);
+    }
+    else if (operation === "/") {
+        return divide(num1, num2);
+    }
+}
+
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    return a / b;
+}
 
 const clearButton = document.querySelector('#clear');
 
