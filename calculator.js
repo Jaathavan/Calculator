@@ -57,7 +57,6 @@ opsButton.forEach((button) => {
             else if (operation === "/") {
                 temp = operator(operation, num1, Number(display.textContent));
                 if (Number.isNaN(temp) || !Number.isFinite(temp)) {
-                    display.textContent = "ERROR";
                     alert("Error: Numbers can not be divided by 0");
                     displayValue="";
                 }
@@ -100,7 +99,6 @@ equalsButton.addEventListener('click', () => {
     else if (operation === "/") {
         temp = operator(operation, num1, Number(display.textContent));
         if (Number.isNaN(temp) || !Number.isFinite(temp)) {
-            display.textContent = "ERROR";
             alert("Error: Numbers can not be divided by 0");
             displayValue="";
         }
