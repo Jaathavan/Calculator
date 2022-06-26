@@ -1,6 +1,8 @@
 const numBtn = document.querySelectorAll('.num');
 const display = document.querySelector('#display');
 let displayValue = "";
+const preDisplay = document.querySelector('#preDisplay')
+let preDisplayValue = "";
 
 //add event listener to number buttons and add them to display when clicked
 numBtn.forEach((button) => {
@@ -30,22 +32,26 @@ opsButton.forEach((button) => {
         if (num1 === "" || operation === "") {
             num1 = Number(display.textContent);
             operation = button.value;
+            preDisplayValue = `${num1} ${operation}`;
             displayValue = "";
         }
         else if (num1 !== "") {
             if (operation === "+") {
                 num1 = operator(operation, num1, Number(display.textContent));
                 operation = button.value;
+                preDisplayValue = `${num1} ${operation}`;
                 displayValue = "";
             }
             else if (operation === "-") {
                 num1 = operator(operation, num1, Number(display.textContent));
                 operation = button.value;
+                preDisplayValue = `${num1} ${operation}`;
                 displayValue = "";
             }
             else if (operation === "*") {
                 num1 = operator(operation, num1, Number(display.textContent));
                 operation = button.value;
+                preDisplayValue = `${num1} ${operation}`;
                 displayValue = "";
             }
             else if (operation === "/") {
@@ -53,15 +59,17 @@ opsButton.forEach((button) => {
                 if (Number.isNaN(temp) || !Number.isFinite(temp)) {
                     display.textContent = "ERROR";
                     alert("Error: Numbers can not be divided by 0");
+                    displayValue="";
                 }
                 else {
                     num1 = operator(operation, num1, Number(display.textContent));
                     operation = button.value;
+                    preDisplayValue = `${num1} ${operation}`;
                     displayValue = "";
                 }
             }
         }
-        display.textContent = num1;
+        preDisplay.textContent = preDisplayValue
         console.log(num1);
         console.log(operation);
     });
@@ -91,6 +99,7 @@ equalsButton.addEventListener('click', () => {
         if (Number.isNaN(temp) || !Number.isFinite(temp)) {
             display.textContent = "ERROR";
             alert("Error: Numbers can not be divided by 0");
+            displayValue="";
         }
         else {
             num1 = operator(operation, num1, Number(display.textContent));
@@ -140,6 +149,8 @@ const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
     display.textContent = 0;
     displayValue = "";
+    preDisplay.textContent = "";
+    preDisplayValue = "";
     num1 = "";
     operation = "";
 });
