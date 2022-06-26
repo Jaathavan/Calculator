@@ -3,6 +3,7 @@ const display = document.querySelector('#display');
 let displayValue = "";
 const preDisplay = document.querySelector('#preDisplay')
 let preDisplayValue = "";
+let firstNum = true;
 
 //add event listener to number buttons and add them to display when clicked
 numBtn.forEach((button) => {
@@ -32,6 +33,7 @@ let activeOps = false;
 //adds event listener to function so that when it is clicked it recalculates the answer + ops
 opsButton.forEach((button) => {
     button.addEventListener('click', () => {
+        firstNum = false;
         if (activeOps === false) {
             if (num1 === "" || operation === "") {
                 num1 = Number(display.textContent);
@@ -87,46 +89,45 @@ opsButton.forEach((button) => {
 const equalsButton = document.querySelector('#equals');
 
 equalsButton.addEventListener('click', () => {
-    if (activeOps === false) {
-        if (num1 === "" || operation === "") {}
-    else if (operation === "+") {
-        preDisplayValue = `${num1} ${operation} ${display.textContent} = `;
-        num1 = operator(operation, num1, Number(display.textContent));
-        operation = "";
-        displayValue = "";
-    }
-    else if (operation === "-") {
-        preDisplayValue = `${num1} ${display.textContent} =`;
-        num1 = operator(operation, num1, Number(display.textContent));
-        operation = "";
-        displayValue = "";
-    }
-    else if (operation === "*") {
-        preDisplayValue = `${num1} ${operation} ${display.textContent} = `;
-        num1 = operator(operation, num1, Number(display.textContent));
-        operation = "";
-        displayValue = "";
-    }
-    else if (operation === "/") {
-        temp = operator(operation, num1, Number(display.textContent));
-        if (Number.isNaN(temp) || !Number.isFinite(temp)) {
-            alert("Error: Numbers can not be divided by 0");
-            displayValue="";
-        }
-        else {
+    if (activeOps === false && firstNum === false) {
+        if (operation === "+") {
             preDisplayValue = `${num1} ${operation} ${display.textContent} = `;
             num1 = operator(operation, num1, Number(display.textContent));
             operation = "";
             displayValue = "";
         }
-    }
-    if (num1 === "" && operation === "") {
-        display.textContent = "0";
-    }
-    else {
-        display.textContent = num1;
-        preDisplay.textContent = preDisplayValue;
-    }
+        else if (operation === "-") {
+            preDisplayValue = `${num1} ${operation} ${display.textContent} =`;
+            num1 = operator(operation, num1, Number(display.textContent));
+            operation = "";
+            displayValue = "";
+        }
+        else if (operation === "*") {
+            preDisplayValue = `${num1} ${operation} ${display.textContent} = `;
+            num1 = operator(operation, num1, Number(display.textContent));
+            operation = "";
+            displayValue = "";
+        }
+        else if (operation === "/") {
+            temp = operator(operation, num1, Number(display.textContent));
+            if (Number.isNaN(temp) || !Number.isFinite(temp)) {
+                alert("Error: Numbers can not be divided by 0");
+                displayValue="";
+            }
+            else {
+                preDisplayValue = `${num1} ${operation} ${display.textContent} = `;
+                num1 = operator(operation, num1, Number(display.textContent));
+                operation = "";
+                displayValue = "";
+            }
+        }
+        if (num1 === "" && operation === "") {
+            display.textContent = "0";
+        }
+        else {
+            display.textContent = num1;
+            preDisplay.textContent = preDisplayValue;
+        }
     }
     console.log(num1);
     console.log(operation)
