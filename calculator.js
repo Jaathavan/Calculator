@@ -14,10 +14,12 @@ numBtn.forEach((button) => {
             displayValue = "0";
             displayValue+=button.value;
             display.textContent = displayValue;
+            activeOps = false;
         } 
         else {
             displayValue+=button.value;
             display.textContent = displayValue
+            activeOps = false;
         }
     })
 })
@@ -25,46 +27,54 @@ numBtn.forEach((button) => {
 const opsButton = document.querySelectorAll(".ops");
 let num1 = "";
 let operation = "";
+let activeOps = false;
 
 //adds event listener to function so that when it is clicked it recalculates the answer + ops
 opsButton.forEach((button) => {
     button.addEventListener('click', () => {
-        if (num1 === "" || operation === "") {
-            num1 = Number(display.textContent);
-            operation = button.value;
-            preDisplayValue = `${num1} ${operation}`;
-            displayValue = "";
-        }
-        else if (num1 !== "") {
-            if (operation === "+") {
-                num1 = operator(operation, num1, Number(display.textContent));
+        if (activeOps === false) {
+            if (num1 === "" || operation === "") {
+                num1 = Number(display.textContent);
                 operation = button.value;
+                activeOps = true;
                 preDisplayValue = `${num1} ${operation}`;
                 displayValue = "";
             }
-            else if (operation === "-") {
-                num1 = operator(operation, num1, Number(display.textContent));
-                operation = button.value;
-                preDisplayValue = `${num1} ${operation}`;
-                displayValue = "";
-            }
-            else if (operation === "*") {
-                num1 = operator(operation, num1, Number(display.textContent));
-                operation = button.value;
-                preDisplayValue = `${num1} ${operation}`;
-                displayValue = "";
-            }
-            else if (operation === "/") {
-                temp = operator(operation, num1, Number(display.textContent));
-                if (Number.isNaN(temp) || !Number.isFinite(temp)) {
-                    alert("Error: Numbers can not be divided by 0");
-                    displayValue="";
-                }
-                else {
+            else if (num1 !== "") {
+                if (operation === "+") {
                     num1 = operator(operation, num1, Number(display.textContent));
                     operation = button.value;
+                    activeOps = true;
                     preDisplayValue = `${num1} ${operation}`;
                     displayValue = "";
+                }
+                else if (operation === "-") {
+                    num1 = operator(operation, num1, Number(display.textContent));
+                    operation = button.value;
+                    activeOps = true;
+                    preDisplayValue = `${num1} ${operation}`;
+                    displayValue = "";
+                }
+                else if (operation === "*") {
+                    num1 = operator(operation, num1, Number(display.textContent));
+                    operation = button.value;
+                    activeOps = true;
+                    preDisplayValue = `${num1} ${operation}`;
+                    displayValue = "";
+                }
+                else if (operation === "/") {
+                    temp = operator(operation, num1, Number(display.textContent));
+                    if (Number.isNaN(temp) || !Number.isFinite(temp)) {
+                        alert("Error: Numbers can not be divided by 0");
+                        displayValue="";
+                    }
+                    else {
+                        num1 = operator(operation, num1, Number(display.textContent));
+                        operation = button.value;
+                        activeOps = true;
+                        preDisplayValue = `${num1} ${operation}`;
+                        displayValue = "";
+                    }
                 }
             }
         }
@@ -77,7 +87,8 @@ opsButton.forEach((button) => {
 const equalsButton = document.querySelector('#equals');
 
 equalsButton.addEventListener('click', () => {
-    if (num1 === "" || operation === "") {}
+    if (activeOps === false) {
+        if (num1 === "" || operation === "") {}
     else if (operation === "+") {
         preDisplayValue = `${num1} ${operation} ${display.textContent} = `;
         num1 = operator(operation, num1, Number(display.textContent));
@@ -115,6 +126,7 @@ equalsButton.addEventListener('click', () => {
     else {
         display.textContent = num1;
         preDisplay.textContent = preDisplayValue;
+    }
     }
     console.log(num1);
     console.log(operation)
