@@ -80,16 +80,19 @@ const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', () => {
     if (num1 === "" || operation === "") {}
     else if (operation === "+") {
+        preDisplayValue = `${num1} ${operation} ${display.textContent} = `;
         num1 = operator(operation, num1, Number(display.textContent));
         operation = "";
         displayValue = "";
     }
     else if (operation === "-") {
+        preDisplayValue = `${num1} ${display.textContent} =`;
         num1 = operator(operation, num1, Number(display.textContent));
         operation = "";
         displayValue = "";
     }
     else if (operation === "*") {
+        preDisplayValue = `${num1} ${operation} ${display.textContent} = `;
         num1 = operator(operation, num1, Number(display.textContent));
         operation = "";
         displayValue = "";
@@ -102,12 +105,19 @@ equalsButton.addEventListener('click', () => {
             displayValue="";
         }
         else {
+            preDisplayValue = `${num1} ${operation} ${display.textContent} = `;
             num1 = operator(operation, num1, Number(display.textContent));
             operation = "";
             displayValue = "";
         }
     }
-    display.textContent = num1;
+    if (num1 === "" && operation === "") {
+        display.textContent = "0";
+    }
+    else {
+        display.textContent = num1;
+        preDisplay.textContent = preDisplayValue;
+    }
     console.log(num1);
     console.log(operation)
 })
