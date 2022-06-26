@@ -79,7 +79,12 @@ opsButton.forEach((button) => {
                 displayValue = "";
             }
         }
-        display.textContent = num1;
+        if (Number.isNaN(num1) || !Number.isFinite(num1)) {
+            display.textContent = "ERROR";
+        }
+        else {
+            display.textContent = num1;
+        }
         console.log(num1);
         console.log(operation);
     });
@@ -108,7 +113,12 @@ equalsButton.addEventListener('click', () => {
         operation = "";
         displayValue = "";
     }
-    display.textContent = num1;
+    if (Number.isNaN(num1) || !Number.isFinite(num1)) {
+        display.textContent = "ERROR";
+    }
+    else {
+        display.textContent = num1;
+    }
     console.log(num1);
     console.log(operation)
 })
