@@ -79,6 +79,8 @@ opsButton.forEach((button) => {
                 displayValue = "";
             }
         }
+
+        //check if Infinite or NaN
         if (Number.isNaN(num1) || !Number.isFinite(num1)) {
             display.textContent = "ERROR";
         }
@@ -93,7 +95,8 @@ opsButton.forEach((button) => {
 const equalsButton = document.querySelector('#equals');
 
 equalsButton.addEventListener('click', () => {
-    if (operation === "+") {
+    if (num1 === "" || operation === "") {}
+    else if (operation === "+") {
         num1 += Number(display.textContent);
         operation = "";
         displayValue = "";
@@ -113,8 +116,12 @@ equalsButton.addEventListener('click', () => {
         operation = "";
         displayValue = "";
     }
+
+    //check if is Infinite or NaN
     if (Number.isNaN(num1) || !Number.isFinite(num1)) {
-        display.textContent = "ERROR";
+        if (num1 !== "" || operation !== "") {
+            display.textContent = "ERROR";
+        }
     }
     else {
         display.textContent = num1;
